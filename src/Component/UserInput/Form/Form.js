@@ -1,24 +1,59 @@
-import React from 'react'
-import styled from 'styled-components';
-import Button from '../../../UI/Button/Button';
+import React, { useState } from "react";
+import styled from "styled-components";
+import Button from "../../../UI/Button/Button";
 
-export default function Form() {
+
+export default function Form(props) {
+  const [enteredAge, setEnteredAge] = useState("");
+  const [enteredName, setEnteredName] = useState("");
+  
+  const changeName = (e) => {
+    console.log(e.target.value);
+    setEnteredName(e.target.value);
+  };
+  const changeAge = (e) => {
+    setEnteredAge(e.target.value);
+  };
+  const addUser = (e) => {
+    e.preventDefault();
+    if (enteredAge === "" && enteredName === "") {
+     props.messageHandler("Name and Age are empty !")
+    } else if (enteredAge === "" && enteredName !== "") {
+      props.messageHandler("Age is empty");
+    } else if (enteredAge !== "" && enteredName === "") {
+     props.messageHandler("Name is empty");
+    }else if(parseInt(enteredAge)<=0){
+      props.messageHandler("Age must be superiur then : 0");
+    }else{
+      props.addUserHandler({name:enteredName,age:enteredAge});
+      setEnteredAge("");
+      setEnteredName("");
+    }
+    
+  };
   return (
-    <FormCont>
-      <div className="inputs">
-        <div className="inputName">
-          <label>Enter Name</label>
-          <input type="text" />
+   
+      <FormCont onSubmit={addUser}>
+        <div className="inputs">
+          <div className="inputName">
+            <label>Enter Name</label>
+            <input type="text" onChange={changeName} value={enteredName} />
+          </div>
+          <div className="inputAge">
+            <label>Enter Age</label>
+            <input
+              type="number"
+              step="1"
+              onChange={changeAge}
+              value={enteredAge}
+            />
+          </div>
         </div>
-        <div className="inputAge">
-          <label>Enter Age</label>
-          <input type="number" step="1" min="0" />
+        <div className="submits">
+          <Button type="submit">Add User</Button>
         </div>
-      </div>
-      <div className='submits'>
-        <Button type='submit'>Add User</Button>
-      </div>
-    </FormCont>
+      </FormCont>
+   
   );
 }
 
@@ -29,6 +64,7 @@ const FormCont = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
   & .inputs {
     color: #f2f2f2;
     width: 100%;

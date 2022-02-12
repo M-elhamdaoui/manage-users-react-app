@@ -1,10 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
-import Form from './Form/Form';
-export default function UserInput() {
+import React from "react";
+import styled from "styled-components";
+import Form from "./Form/Form";
+export default function UserInput(props) {
   return (
-    <UserInputCont><Form/></UserInputCont>
-  )
+    <UserInputCont>
+      <Form
+        addUserHandler={props.addUserHandler}
+        messageHandler={props.messageHandler}
+      />
+    </UserInputCont>
+  );
 }
 
 const UserInputCont = styled.div`
@@ -16,5 +21,4 @@ const UserInputCont = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  
 `;

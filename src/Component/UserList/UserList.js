@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import User from "../User/User";
-export default function UserList() {
+export default function UserList(props) {
+  const data=props.data.map((elem,index)=>{
+    return <User name={elem.name} age={elem.age} key={index} delete={()=>props.deleteHandler(index)} />;
+  })
   return (
     <UserListCont>
-      <User />
-      <User />
+      {data.reverse()}
     </UserListCont>
   );
 }
