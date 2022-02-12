@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React ,{useState} from "react";
+import UserInput from "./Component/UserInput/UserInput";
+import UserList from "./Component/UserList/UserList";
+import styled from "styled-components";
 
 function App() {
+
+  const [user,setUser]=useState([{name:"Moammed",age:22}]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppCont>
+      <UserInput />
+      <UserList data={user} />
+    </AppCont>
   );
 }
 
 export default App;
+
+const AppCont = styled.div`
+  
+  width: 60%;
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
